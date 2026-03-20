@@ -1,0 +1,63 @@
+{% load static %}
+{% load tz %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subject Attempt Detail | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/subject-attempt-detail.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Subject Quiz Attempt Details</h2>
+
+        <p>Subject: {{ attempt.subject }}</p>
+        <p>Started At: {{ attempt.started_at|localtime|date:"d M Y h:i:s A" }}</p>
+        <p>Finished At: {{ attempt.finished_at|localtime|date:"d M Y h:i:s A" }}</p>
+        <p>Time Taken: {{ attempt.duration_seconds }} seconds</p>
+        <p>Total Score: {{ attempt.score }}</p>
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Question</th>
+                        <th>Student Answer</th>
+                        <th>Correct Answer</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for ans in answers %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ ans.question.question_text }}</td>
+                        <td>{{ ans.selected_option }}</td>
+                        <td>{{ ans.question.correct_option }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <div class="btn-wrapper">
+            <a href="{% url 'recent_subject_attempts' %}" class="back-btn">
+                Back to Subject Attempts
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

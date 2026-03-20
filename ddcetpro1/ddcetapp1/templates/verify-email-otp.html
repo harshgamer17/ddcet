@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Verify Email OTP | DDCET</title>
+
+    <link rel="stylesheet" href="{% static 'css/verify-otp.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+</head>
+<body>
+
+<div class="otp-container">
+
+    <div class="otp-box">
+        <h2>Email Verification</h2>
+        <p class="subtitle">Enter the 6-digit OTP sent to your email</p>
+
+        <form method="post" id="otpForm">
+            {% csrf_token %}
+
+            <div class="otp-inputs">
+                <input type="text" maxlength="1" class="otp-digit" autofocus>
+                <input type="text" maxlength="1" class="otp-digit">
+                <input type="text" maxlength="1" class="otp-digit">
+                <input type="text" maxlength="1" class="otp-digit">
+                <input type="text" maxlength="1" class="otp-digit">
+                <input type="text" maxlength="1" class="otp-digit">
+            </div>
+
+            <input type="hidden" name="otp" id="fullOtp">
+
+            <button type="submit">Verify OTP</button>
+        </form>
+
+        <div class="resend-wrapper">
+            <button id="resendBtn" onclick="resendOTP()">Resend OTP</button>
+        </div>
+
+        <div class="messages">
+            {% for message in messages %}
+                <p style="margin-top:10px;">{{ message }}</p>
+            {% endfor %}
+        </div>
+
+    </div>
+
+</div>
+
+<script>
+
+/* OTP INPUT LOGIC */
+const otpInputs = document.querySelectorAll(".otp-digit");
+const fullOtpInput = document.getElementById("fullOtp");
+const form = document.getElementById("otpForm");
+
+otpInputs.forEach((input, index) => {
+
+    input.addEventListener("input", () => {
+
+        input.value = input.value.replace(/[^0-9]/g, "");
+
+        if (input.value.length === 1 && index < otpInputs.length - 1) {
+            otpInputs[index + 1].focus();
+        }
+
+        updateFullOtp();
+    });
+
+    input.addEventListener("keydown", (e) => {
+        if (e.key === "Backspace" && input.value === "" && index > 0) {
+            otpInputs[index - 1].focus();
+        }
+    });
+
+});
+
+function updateFullOtp() {
+    fullOtpInput.value = getOtpValue();
+}
+
+function getOtpValue() {
+    return Array.from(otpInputs).map(input => input.value).join("");
+}
+
+form.addEventListener("submit", function(e) {
+    updateFullOtp();
+    if (fullOtpInput.value.length !== 6) {
+        e.preventDefault();
+        alert("Please enter complete 6-digit OTP.");
+    }
+});
+
+/* RESEND OTP */
+function resendOTP() {
+    fetch("{% url 'resend_email_otp' %}")
+    .then(response => response.json())
+    .then(data => {
+        alert(data.message);
+    });
+}
+
+</script>
+
+</body>
+</html>

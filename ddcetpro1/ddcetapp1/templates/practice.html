@@ -1,0 +1,36 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Quizzes</title>
+    <link rel="stylesheet" href="{% static 'css/practice.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>Diploma to Degree Examination Portal</header>
+
+<div class="box">
+    <h2>Practice Quizzes</h2>
+    <p>Select how you want to practice</p>
+
+    <div class="options">
+        <a href="{% url 'mix_quiz' %}" class="card">
+            <h3>Mix Questions</h3>
+            <p>Questions from all subjects</p>
+        </a>
+
+        <a href="{% url 'subject_wise' %}" class="card">
+            <h3>Subject Wise</h3>
+            <p>Choose subject first</p>
+        </a>
+    </div>
+
+    <a href="{% url 'student_dashboard' %}" class="back">Back</a>
+</div>
+
+</body>
+</html>

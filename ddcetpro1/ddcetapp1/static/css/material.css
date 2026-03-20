@@ -1,0 +1,114 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #4e73df, #1cc88a);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Main Wrapper */
+.page-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card */
+.material-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 850px;
+    padding: 40px;
+    border-radius: 16px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* Title */
+.material-card h1 {
+    font-size: 28px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+/* Subject Grid */
+.subject-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 20px;
+}
+
+/* Subject Box */
+.subject-box {
+    display: block;
+    padding: 18px;
+    background: #f8f9fc;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #333;
+    font-weight: 600;
+    transition: 0.3s;
+    border: 2px solid transparent;
+}
+
+.subject-box:hover {
+    background: #4e73df;
+    color: white;
+    border: 2px solid #4e73df;
+    transform: translateY(-5px);
+}
+
+/* No Data */
+.no-data {
+    font-size: 14px;
+    color: #888;
+}
+
+/* Button Area */
+.btn-area {
+    margin-top: 35px;
+}
+
+/* Back Button */
+.back-btn {
+    display: inline-block;
+    padding: 12px 25px;
+    background: #4e73df;
+    color: white;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+.back-btn:hover {
+    background: #2e59d9;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .material-card {
+        padding: 25px;
+    }
+
+    .material-card h1 {
+        font-size: 22px;
+    }
+}

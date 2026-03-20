@@ -1,0 +1,27 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Select Subject | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/practice-options.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>Select Subject</header>
+
+<div class="box">
+    {% for subject in subjects %}
+        <a href="{% url 'subject_quiz' subject %}" class="card">
+            {{ subject }}
+        </a>
+    {% endfor %}
+</div>
+
+<a href="{% url 'practice_options' %}" class="back">Back</a>
+
+</body>
+</html>

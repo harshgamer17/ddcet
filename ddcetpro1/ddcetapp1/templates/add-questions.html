@@ -1,0 +1,52 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Questions | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/add-questions.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>DDCET: A Competitive Assessment & Management portal</header>
+
+<div class="container">
+    <h2>Add Questions</h2>
+    <p>Quiz: <b>{{ quiz.title }}</b></p>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Question</label>
+        <textarea name="question" required></textarea>
+
+        <label>Option A</label>
+        <input type="text" name="option_a" required>
+
+        <label>Option B</label>
+        <input type="text" name="option_b" required>
+
+        <label>Option C</label>
+        <input type="text" name="option_c" required>
+
+        <label>Option D</label>
+        <input type="text" name="option_d" required>
+
+        <label>Correct Option</label>
+        <select name="correct_option" required>
+            <option value="A">Option A</option>
+            <option value="B">Option B</option>
+            <option value="C">Option C</option>
+            <option value="D">Option D</option>
+        </select>
+
+        <button type="submit">Save Question</button>
+        <a href="{% url 'view_quiz' quiz.id %}" class="back-btn">Back</a>
+    </form>
+</div>
+
+</body>
+</html>

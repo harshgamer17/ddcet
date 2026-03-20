@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Material | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/study-material.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Study Material</h2>
+        <p class="subtitle">PDFs and Notes will appear here</p>
+
+        <div class="material-box">
+            Study Material Coming Soon...
+        </div>
+
+        <div class="btn-wrapper">
+            <a href="{% url 'student_dashboard' %}" class="back-btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,85 @@
+/* PAGE BASE */
+body {
+    margin: 0;
+    padding: 0;
+    background: #eef1f5;
+    font-family: "Poppins", sans-serif;
+}
+
+/* HEADER */
+header {
+    background: #002147;
+    color: white;
+    padding: 18px;
+    text-align: center;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+/* FORM CONTAINER */
+.form-box {
+    background: white;
+    width: 420px;                 /* 🔥 FIXED FORM WIDTH */
+    margin: 60px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+/* LABELS */
+label {
+    display: block;
+    margin-bottom: 6px;
+    margin-top: 14px;
+    font-weight: 600;
+    font-size: 14px;
+    color: #333;
+}
+
+/* INPUT + SELECT (SAME SIZE) */
+input,
+select {
+    width: 100%;                  /* 🔥 SAME WIDTH */
+    height: 46px;                 /* 🔥 SAME HEIGHT */
+    padding: 0 12px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    font-size: 15px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+/* FOCUS EFFECT */
+input:focus,
+select:focus {
+    border-color: #0056b3;
+}
+
+/* BUTTON */
+button {
+    width: 100%;                  /* 🔥 SAME WIDTH AS INPUT */
+    height: 46px;                 /* 🔥 SAME HEIGHT */
+    margin-top: 20px;
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* BUTTON HOVER */
+button:hover {
+    background: #003e80;
+}
+
+/* BACK LINK */
+a {
+    display: block;
+    margin-top: 14px;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 600;
+    color: #0056b3;
+}

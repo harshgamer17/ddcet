@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Modify Quiz | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/view-quiz.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>DDCET: A Competitive Assessment & Management portal</header>
+
+<div class="container">
+    <h2>Modify Quiz</h2>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="field">
+            <label>Total Questions</label>
+            <input type="number" name="total_questions"
+                   value="{{ quiz.total_questions }}" required>
+        </div>
+
+        <div class="field">
+            <label>Status</label>
+            <select name="status">
+                <option value="Active" {% if quiz.status == "Active" %}selected{% endif %}>Active</option>
+                <option value="Inactive" {% if quiz.status == "Inactive" %}selected{% endif %}>Inactive</option>
+            </select>
+        </div>
+
+        <div class="actions">
+            <button type="submit" class="edit-btn">Save</button>
+            <a href="{% url 'view_quiz' quiz.id %}" class="back-btn">Cancel</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

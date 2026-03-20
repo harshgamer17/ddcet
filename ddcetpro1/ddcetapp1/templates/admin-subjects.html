@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Subjects | DDCET</title>
+
+    <link rel="stylesheet" href="{% static 'css/admin-subjects.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<nav class="navbar">
+    <ul class="navbar-left">
+        <li><a href="{% url 'admin_students' %}">Students</a></li>
+        <li><a href="{% url 'admin_subjects' %}">Subjects</a></li>
+        <li><a href="{% url 'admin_quizzes' %}">Quizzes</a></li>
+        <li><a href="#">Results</a></li>
+    </ul>
+
+    <ul class="navbar-right">
+        <li>
+            <a class="admin-btn" href="{% url 'admin_profile' %}">
+                <i class="fa fa-user"></i>
+                {{ request.user.first_name|default:request.user.username }}
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+
+    <h2>All Subjects</h2>
+
+    <table class="subject-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Subject</th>
+                <th>Total Quizzes</th>
+                <th>Active</th>
+                <th>Inactive</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for sub in subjects %}
+            <tr>
+                <td>{{ sub.sr }}</td>
+                <td>{{ sub.subject }}</td>
+                <td>{{ sub.total_quizzes }}</td>
+                <td class="active">{{ sub.active }}</td>
+                <td class="inactive">{{ sub.inactive }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <div class="back-btn">
+        <a href="{% url 'admin_dashboard' %}">Back to Dashboard</a>
+    </div>
+
+</div>
+
+</body>
+</html>

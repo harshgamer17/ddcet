@@ -1,0 +1,191 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html, body {
+    min-height: 100%;
+    overflow-y: auto;
+}
+
+/* HEADER */
+header {
+    background: rgba(0, 33, 71, 0.9);
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+
+/* NAVBAR */
+.navbar {
+    background-color: #0056b3;
+    height: 70px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 50px;
+}
+
+.navbar-left,
+.navbar-right {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    padding: 10px 15px;
+}
+
+.navbar a:hover {
+    background: #003e80;
+    border-radius: 5px;
+}
+
+/* ADMIN PROFILE BUTTON */
+.admin-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.admin-btn:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+
+/* ✅ FULL PAGE BACKGROUND FIX (MAIN PART) */
+.background-slider {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-image: url("../images/1.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -2;
+}
+
+/* OPTIONAL OVERLAY FOR SMOOTH LOOK */
+.background-slider::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(255, 255, 255, 0.55);
+}
+
+/* CONTAINER */
+.container {
+    position: relative;
+    z-index: 1;
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto 60px;
+    padding: 25px;
+    background: rgba(255, 255, 255, 0.92);
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* PROFILE CARD */
+.profile-card {
+    display: flex;
+    margin-top: 30px;
+    gap: 30px;
+}
+
+/* LEFT */
+.profile-left {
+    flex: 1;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    text-align: center;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+.profile-left i {
+    font-size: 80px;
+    color: #0056b3;
+    margin-bottom: 10px;
+}
+
+/* RIGHT */
+.profile-right {
+    flex: 2;
+    background: #ffffff;
+    border-radius: 10px;
+    padding: 30px;
+    box-shadow: 0px 4px 8px rgba(0,0,0,0.2);
+}
+
+.profile-field {
+    text-align: left;
+    margin-bottom: 15px;
+}
+
+.profile-field label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.profile-field input {
+    width: 100%;
+    padding: 10px;
+    margin-top: 5px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* ACTION BUTTONS */
+.profile-actions {
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding-bottom: 20px;
+}
+
+.profile-actions button {
+    padding: 12px 26px;
+    font-size: 16px;
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+.profile-actions .logout {
+    background: #c0392b;
+}
+
+.my-profile-link{
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    border: 2px solid #ffffff;
+    border-radius: 20px;
+    padding: 8px 16px;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}

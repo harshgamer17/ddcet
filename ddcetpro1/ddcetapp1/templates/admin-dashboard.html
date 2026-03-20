@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Admin Dashboard | DDCET</title>
+
+    <link rel="stylesheet" href="{% static 'css/admin-dashboard.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<nav class="navbar">
+    <ul class="navbar-left">
+        <li><a href="{% url 'admin_students' %}">Students</a></li>
+        <li><a href="{% url 'admin_subjects' %}">Subjects</a></li>
+        <li><a href="{% url 'admin_quizzes' %}">Quizzes</a></li>
+        <li><a href="#">Results</a></li>
+    </ul>
+
+    <ul class="navbar-right">
+        <li>
+            <a class="admin-btn" href="{% url 'admin_profile' %}">
+                <i class="fa fa-user"></i>
+                {{ request.user.first_name|default:request.user.username }}
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="container">
+    <h2>Welcome To Admin Dashboard</h2>
+    <p>Manage students, subjects, quizzes and results</p>
+
+    <div class="dashboard-cards">
+
+        <div class="card">
+            <i class="fas fa-users"></i>
+            <h3>Students</h3>
+            <p>{{ student_count }} Registered</p>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-book"></i>
+            <h3>Subjects</h3>
+            <p>{{ active_subject_count }} Active</p>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-question-circle"></i>
+            <h3>Quizzes</h3>
+            <p>{{ active_quiz_count }} Active</p>
+        </div>
+
+        <div class="card">
+            <i class="fas fa-chart-line"></i>
+            <h3>Results</h3>
+            <p>Published</p>
+        </div>
+
+    </div>
+
+    <div class="admin-actions">
+        <button>Add New Subject</button>
+
+        <a href="{% url 'admin_quizzes' %}" class="admin-action">Add New Quiz</a>
+
+        <button>View Results</button>
+
+        <a href="{% url 'logout' %}">
+            <button class="logout">Logout</button>
+        </a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,96 @@
+/* ================= GLOBAL RESPONSIVE ================= */
+
+/* Tablet View */
+@media (max-width: 992px) {
+
+    .dashboard-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+
+    .container {
+        padding: 20px;
+    }
+
+    .card {
+        height: 170px;
+    }
+}
+
+/* Mobile View */
+@media (max-width: 768px) {
+
+    html, body {
+        overflow: auto;
+    }
+
+    header {
+        font-size: 16px;
+        padding: 12px;
+    }
+
+    /* Navbar vertical */
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px;
+        gap: 10px;
+        text-align: center;
+    }
+
+    .navbar-left,
+    .navbar-right {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .card {
+        height: 160px;
+    }
+
+    .button-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn {
+        width: 80%;
+        text-align: center;
+    }
+}
+
+/* Small Mobile */
+@media (max-width: 480px) {
+
+    .container {
+        width: 95%;
+        padding: 15px;
+    }
+
+    .card {
+        height: 150px;
+    }
+
+    .card i {
+        font-size: 30px;
+    }
+
+    .card h3 {
+        font-size: 16px;
+    }
+
+    .card p {
+        font-size: 13px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 8px 15px;
+    }
+}

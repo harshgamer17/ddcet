@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ subject }} Materials | DDCET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Separate CSS only for this page -->
+    <link rel="stylesheet" href="{% static 'css/material-detail.css' %}">
+
+      <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+</head>
+<body>
+
+<div class="detail-wrapper">
+
+    <div class="detail-card">
+
+        <h1>{{ subject }}</h1>
+        <p class="subtitle">Study Material & Chapter PDFs</p>
+
+        <div class="coming-soon">
+            <div class="circle"></div>
+            <h2>Coming Soon</h2>
+            <p>Study materials for {{ subject }} will be uploaded shortly.</p>
+        </div>
+
+        <div class="button-group">
+            <a href="{% url 'materials' %}" class="btn secondary">
+                Back to Subjects
+            </a>
+
+            <a href="{% url 'student_dashboard' %}" class="btn primary">
+                Dashboard
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

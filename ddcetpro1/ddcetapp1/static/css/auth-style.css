@@ -1,0 +1,90 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+html, body {
+    height: 100%;
+}
+
+body {
+    background: linear-gradient(
+        rgba(163, 90, 170, 0.85),
+        rgba(0, 90, 170, 0.85)
+    ),
+    url("/static/images/1.jpg") no-repeat center center/cover;
+}
+
+.auth-wrapper {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.auth-box {
+    background: #ffffff;
+    width: 400px;
+    padding: 35px;
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+.auth-box h2 {
+    margin-bottom: 25px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+form input {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    font-size: 14px;
+}
+
+form input:focus {
+    border-color: #0056b3;
+    outline: none;
+}
+
+form button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #0056b3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+form button:hover {
+    background: #003e80;
+}
+
+.auth-link {
+    margin-top: 15px;
+}
+
+.auth-link a {
+    color: #0056b3;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.password-note {
+    font-size: 12px;
+    margin-top: 10px;
+    color: #555;
+}

@@ -1,0 +1,100 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Recent Mix Quiz Attempts | DDCET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/student-dashboard.css' %}">
+    <link rel="stylesheet" href="{% static 'css/recent-mix-attempts.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<nav class="navbar">
+    <ul class="navbar-left">
+        <li><a href="{% url 'practice_options' %}">Quiz Practice</a></li>
+        <li><a href="#">Scores</a></li>
+        <li><a href="{% url 'student_profile' %}">Profile</a></li>
+    </ul>
+
+    <ul class="navbar-right">
+        <li>
+            <a href="{% url 'student_profile' %}" class="my-profile-link">
+                <i class="fas fa-user-graduate"></i>
+                {{ request.user.first_name|default:request.user.username }}
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="background-slider"></div>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Recent Mix Quiz Attempts</h2>
+        <p class="subtitle">Last 5 Mix Quiz Attempts</p>
+
+        {% if attempts %}
+
+        <div class="table-wrapper">
+            <table class="attempt-table">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Date & Time</th>
+                        <th>Total Score</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    {% for attempt in attempts %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ attempt.created_at|date:"d M Y H:i" }}</td>
+                        <td class="score">{{ attempt.score }}</td>
+                        <td>
+                            <a href="{% url 'attempt_detail' attempt.id %}" class="view-btn">
+                                View Details
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <div class="no-data">
+            <i class="fas fa-info-circle"></i>
+            <p>No Mix Quiz Attempts Found</p>
+        </div>
+
+        {% endif %}
+
+        <div class="back-btn-wrapper">
+            <a href="{% url 'recent_activity' %}" class="back-btn">
+                Back to Recent Activity
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

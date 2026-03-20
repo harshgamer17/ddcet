@@ -1,0 +1,47 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Add Quiz | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/add-quiz.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>Add New Quiz</header>
+
+<div class="form-box">
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Quiz Title</label>
+        <input type="text" name="title" required>
+
+        <label>Subject</label>
+        <select name="subject">
+            <option>Computer</option>
+            <option>Maths</option>
+            <option>Physics</option>
+            <option>English</option>
+            <option>Chemistry</option>
+        </select>
+
+        <label>Total Questions</label>
+        <input type="number" name="total_questions" required>
+
+        <label>Status</label>
+        <select name="status">
+            <option>Active</option>
+            <option>Inactive</option>
+        </select>
+
+        <button type="submit">Add Quiz</button>
+        <a href="{% url 'admin_quizzes' %}">Back</a>
+    </form>
+</div>
+
+</body>
+</html>

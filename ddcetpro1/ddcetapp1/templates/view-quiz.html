@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Quiz | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/view-quiz.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>DDCET: A Competitive Assessment & Management portal</header>
+
+<div class="container">
+    <h2>Quiz Details</h2>
+    <p>View / Modify / Delete Quiz</p>
+
+    <div class="field">
+        <label>Quiz Title</label>
+        <input type="text" value="{{ quiz.title }}" disabled>
+    </div>
+
+    <div class="field">
+        <label>Subject</label>
+        <input type="text" value="{{ quiz.subject }}" disabled>
+    </div>
+
+    <div class="field">
+        <label>Total Questions</label>
+        <input type="text" value="{{ quiz.total_questions }}" disabled>
+    </div>
+
+    <div class="field">
+        <label>Status</label>
+        <input type="text" value="{{ quiz.status }}" disabled>
+    </div>
+
+    <div class="actions">
+        <!-- ✅ ADD QUESTIONS -->
+        <a href="{% url 'add_questions' quiz.id %}" class="edit-btn">Add Questions</a>
+
+        <a href="{% url 'modify_quiz' quiz.id %}" class="edit-btn">Modify</a>
+
+        <form method="post" action="{% url 'delete_quiz' quiz.id %}">
+            {% csrf_token %}
+            <button type="submit" class="delete-btn"
+                    onclick="return confirm('Are you sure?')">
+                Delete
+            </button>
+        </form>
+
+        <a href="{% url 'admin_quizzes' %}" class="back-btn">Back</a>
+    </div>
+</div>
+
+</body>
+</html>

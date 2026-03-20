@@ -1,0 +1,64 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Manage Quizzes | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/admin-quizzes.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>DDCET: A Competitive Assessment & Management portal</header>
+
+<!-- ================= QUIZ MANAGEMENT BOX ================= -->
+<div class="container">
+    <h2>Quiz Management</h2>
+    <p>Manage all quizzes here</p>
+
+    <!-- ADD QUIZ BUTTON -->
+    <a href="{% url 'add_quiz' %}" class="add-btn">+ Add New Quiz</a>
+
+    <table>
+        <tr>
+            <th>Quiz Title</th>
+            <th>Subject</th>
+            <th>Total Questions</th>
+            <th>Status</th>
+            <th>Action</th>
+        </tr>
+
+        {% for quiz in quizzes %}
+        <tr>
+            <td>{{ quiz.title }}</td>
+            <td>{{ quiz.subject }}</td>
+            <td>{{ quiz.total_questions }}</td>
+            <td class="{{ quiz.status|lower }}">{{ quiz.status }}</td>
+            <td>
+                <a href="{% url 'view_quiz' quiz.id %}">
+                    <button class="view-btn">View</button>
+                </a>
+            </td>
+        </tr>
+        {% empty %}
+        <tr>
+            <td colspan="5" style="text-align:center;">No quizzes added yet</td>
+        </tr>
+        {% endfor %}
+    </table>
+</div>
+<!-- ================= END QUIZ BOX ================= -->
+
+
+<!-- ================= ADMIN PORTAL BUTTON (OUTSIDE BOX) ================= -->
+<div class="admin-portal-outside">
+    <a href="{% url 'admin_dashboard' %}" class="admin-portal-btn">
+        Go To Admin Portal
+    </a>
+</div>
+<!-- ================= END ================= -->
+
+</body>
+</html>

@@ -1,0 +1,164 @@
+/* ================= GLOBAL ================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f6f9;
+    color: #333;
+}
+
+/* ================= HEADER ================= */
+
+header {
+    background: #1e3c72;
+    padding: 20px;
+    text-align: center;
+    color: white;
+}
+
+header h1 {
+    font-size: 28px;
+    font-weight: 600;
+}
+
+/* ================= NAVBAR ================= */
+
+.navbar {
+    background: #1f5aa6;
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 40px;
+    align-items: center;
+}
+
+.navbar ul {
+    list-style: none;
+    display: flex;
+    gap: 30px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: 500;
+    transition: 0.3s;
+}
+
+.navbar a:hover {
+    opacity: 0.8;
+}
+
+.admin-btn {
+    background: transparent;
+    border: 2px solid white;
+    padding: 6px 15px;
+    border-radius: 25px;
+}
+
+/* ================= CONTAINER ================= */
+
+.container {
+    width: 85%;
+    margin: 40px auto;
+    background: white;
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+    text-align: center;
+}
+
+.container h2 {
+    font-size: 26px;
+    margin-bottom: 10px;
+}
+
+.container p {
+    margin-bottom: 30px;
+    color: #555;
+}
+
+/* ================= TABLE DESIGN ================= */
+
+.student-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* Header */
+.student-table thead {
+    background-color: #1f5aa6;
+    color: white;
+}
+
+.student-table th {
+    padding: 15px;
+    font-size: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+/* Rows */
+.student-table td {
+    padding: 14px;
+    font-size: 14px;
+    text-align: center;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+/* Zebra Effect */
+.student-table tbody tr:nth-child(even) {
+    background-color: #f9fbff;
+}
+
+/* Hover Effect */
+.student-table tbody tr:hover {
+    background-color: #eef4ff;
+    transition: 0.3s;
+}
+
+/* ================= BUTTON ================= */
+
+.admin-action {
+    display: inline-block;
+    margin-top: 30px;
+    padding: 10px 25px;
+    background-color: #1f5aa6;
+    color: white;
+    text-decoration: none;
+    border-radius: 6px;
+    transition: 0.3s;
+}
+
+.admin-action:hover {
+    background-color: #163d75;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .navbar {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .student-table th,
+    .student-table td {
+        padding: 10px;
+        font-size: 13px;
+    }
+}

@@ -1,0 +1,46 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Subjects | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/subjects.css' %}">
+
+    <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Available Subjects</h2>
+        <p class="subtitle">Choose a subject to start practice</p>
+
+        {% if subjects %}
+        <div class="subject-grid">
+            {% for subject in subjects %}
+            <a href="{% url 'material_detail' subject %}" class="subject-box">
+                {{ subject }}
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p class="no-data">No Active Subjects Available</p>
+        {% endif %}
+
+        <div class="btn-wrapper">
+            <a href="{% url 'student_dashboard' %}" class="back-btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

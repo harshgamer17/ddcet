@@ -1,0 +1,34 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>View Quiz | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/admin-quizzes.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>Quiz Details</header>
+
+<div class="container">
+    <h2>{{ quiz.title }}</h2>
+
+    <p><b>Subject:</b> {{ quiz.subject }}</p>
+    <p><b>Total Questions:</b> {{ quiz.total_questions }}</p>
+    <p><b>Status:</b> {{ quiz.status }}</p>
+
+    <div style="margin-top:20px;">
+        <a href="{% url 'update_quiz' quiz.id %}" class="add-btn">Update</a>
+        <a href="{% url 'delete_quiz' quiz.id %}"
+           class="add-btn"
+           style="background:#c0392b;"
+           onclick="return confirm('Delete this quiz?')">Delete</a>
+        <a href="{% url 'admin_quizzes' %}" class="add-btn">Back</a>
+    </div>
+</div>
+
+</body>
+</html>

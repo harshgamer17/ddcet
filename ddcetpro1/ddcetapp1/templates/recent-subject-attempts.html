@@ -1,0 +1,72 @@
+{% load static %}
+{% load tz %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Recent Subject Quiz Attempts | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/recent-subject-attempts.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+
+        <h2>Recent Subject Quiz Attempts</h2>
+        <p>Last 5 Subject Quiz Attempts</p>
+
+        {% if attempts %}
+
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Subject</th>
+                        <th>Date</th>
+                        <th>Total Score</th>
+                        <th>Details</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attempt in attempts %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+                        <td>{{ attempt.subject }}</td>
+                        <td>{{ attempt.created_at|localtime|date:"d M Y h:i A" }}</td>
+                        <td>{{ attempt.score }}</td>
+                        <td>
+                            <a href="{% url 'attempt_detail' attempt.id %}" class="view-btn">
+                                View Details
+                            </a>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        {% else %}
+
+        <p>No Subject Quiz Attempts Found</p>
+
+        {% endif %}
+
+        <div class="btn-wrapper">
+            <a href="{% url 'recent_activity' %}" class="back-btn">
+                Back to Recent Activity
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

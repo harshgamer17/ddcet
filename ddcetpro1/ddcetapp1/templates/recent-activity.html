@@ -1,0 +1,79 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recent Activity | DDCET</title>
+
+    <link rel="stylesheet" href="{% static 'css/student-dashboard.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/recent-activity.css' %}">
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<nav class="navbar">
+    <ul class="navbar-left">
+        <li><a href="{% url 'student_dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'practice_options' %}">Quiz Practice</a></li>
+        <li><a href="{% url 'student_profile' %}">Profile</a></li>
+    </ul>
+
+    <ul class="navbar-right">
+        <li>
+            <a href="{% url 'student_profile' %}" class="my-profile-link">
+                <i class="fas fa-user-graduate"></i>
+                {{ request.user.first_name|default:request.user.username }}
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="background-slider"></div>
+
+<div class="container">
+
+    <h2>Recent Activity</h2>
+    <p>Select quiz type to view last 5 attempts</p>
+
+    <div class="activity-cards">
+
+        <!-- MIX QUIZ CARD -->
+        <a href="{% url 'recent_mix_attempts' %}" class="activity-card-link">
+            <div class="activity-card">
+                <i class="fas fa-random"></i>
+                <h3>Mix Quiz Attempts</h3>
+                <p>View Last 5 Mix Attempts</p>
+            </div>
+        </a>
+
+        <!-- SUBJECT QUIZ CARD -->
+        <a href="{% url 'recent_subject_attempts' %}" class="activity-card-link">
+            <div class="activity-card">
+                <i class="fas fa-book-open"></i>
+                <h3>Subject Quiz Attempts</h3>
+                <p>View Last 5 Subject Attempts</p>
+            </div>
+        </a>
+
+    </div>
+
+    <div class="admin-actions">
+        <a href="{% url 'student_dashboard' %}" class="admin-action">
+            Back to Dashboard
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>

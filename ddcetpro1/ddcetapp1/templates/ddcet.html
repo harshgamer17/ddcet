@@ -1,0 +1,59 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>DDCET: A Competitive Assessment & Management portal</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="{% static 'images/favicon.ico' %}">
+    <link rel="stylesheet" href="{% static 'css/ddcet.css' %}">
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<!-- SLIDESHOW -->
+<div class="slideshow">
+    <img src="{% static 'images/1.jpg' %}" alt="">
+    <img src="{% static 'images/2.jpg' %}" alt="">
+    <img src="{% static 'images/3.jpg' %}" alt="">
+</div>
+
+<div class="overlay"></div>
+
+<header>
+    <!-- Desktop Title -->
+    <h1 class="main-title desktop-title">
+        DDCET: A Competitive Assessment & Management portal
+    </h1>
+
+    <!-- Mobile Title -->
+    <h1 class="main-title mobile-title">
+        DDCET Portal
+    </h1>
+</header>
+
+<nav class="navbar">
+    <div class="nav-left">
+        <a href="{% url 'login' %}" class="nav-link">Quiz Portal</a>
+    </div>
+
+    <div class="nav-right">
+        <a href="{% url 'login' %}" class="login-btn">
+            <i class="far fa-user-circle"></i> LOGIN
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+    <h2>Welcome to the Diploma to Degree Examination Portal</h2>
+    <p>
+        Prepare for your exams with interactive quizzes and study resources.
+    </p>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,105 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Mix Quiz</title>
+    <link rel="stylesheet" href="{% static 'css/quiz.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header class="quiz-header">Mix Quiz</header>
+
+<div class="quiz-container">
+
+{% if finished %}
+    <div class="question-box">
+        <h2>Quiz Completed ✅</h2>
+        <h3>Your Score: {{ score }}</h3>
+        <a href="{% url 'student_dashboard' %}" class="back-btn">Back to Practice</a>
+    </div>
+{% else %}
+    <div class="quiz-top">
+        <div class="timer-box">
+            ⏳ Time Left: <span id="timer"></span>
+        </div>
+        <div class="marks-box">
+            🎯 Marks: <span id="liveMarks">{{ current_score }}</span> / {{ total_marks }}
+        </div>
+    </div>
+
+    <div class="question-box">
+        <h3>Question {{ index }} / {{ total }}</h3>
+        <p>{{ question.question_text }}</p>
+
+        <form method="post" id="quizForm">
+            {% csrf_token %}
+            {% for key, value in options %}
+                <button type="button" class="option" data-value="{{ key }}">
+                    {{ value }}
+                </button>
+            {% endfor %}
+            <input type="hidden" name="answer" id="answerInput">
+        </form>
+    </div>
+{% endif %}
+
+</div>
+
+<script>
+let totalSeconds = {{ remaining_time|default:0 }};
+let timerDisplay = document.getElementById("timer");
+
+function updateTimer() {
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+    timerDisplay.innerText =
+        String(minutes).padStart(2,'0') + ":" +
+        String(seconds).padStart(2,'0');
+
+    if (totalSeconds <= 0) {
+        document.getElementById("quizForm").submit();
+    }
+    totalSeconds--;
+}
+setInterval(updateTimer, 1000);
+
+const buttons = document.querySelectorAll('.option');
+const correct = "{{ question.correct_option|default:'' }}";
+const answerInput = document.getElementById('answerInput');
+const form = document.getElementById('quizForm');
+let liveMarks = parseFloat("{{ current_score|default:0 }}");
+
+buttons.forEach(btn => {
+    btn.addEventListener('click', () => {
+
+        buttons.forEach(b => b.disabled = true);
+
+        const selected = btn.dataset.value;
+        answerInput.value = selected;
+
+        if (selected === correct) {
+            btn.classList.add('correct');
+            liveMarks += 2;
+        } else {
+            btn.classList.add('wrong');
+            liveMarks -= 0.5;
+            buttons.forEach(b => {
+                if (b.dataset.value === correct) {
+                    b.classList.add('correct');
+                }
+            });
+        }
+
+        document.getElementById("liveMarks").innerText = liveMarks;
+
+        setTimeout(() => form.submit(), 1000);
+    });
+});
+</script>
+
+</body>
+</html>

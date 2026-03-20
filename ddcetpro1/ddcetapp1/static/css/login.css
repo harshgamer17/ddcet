@@ -1,0 +1,90 @@
+/* RESET */
+* {
+    box-sizing: border-box;
+    font-family: monospace;
+}
+
+body {
+    height: 100vh;
+    background: linear-gradient(135deg,#115688,#118888);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* OVERLAY */
+.login-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.7);
+}
+
+/* LOGIN BOX */
+.login-box {
+    position: relative;
+    z-index: 2;
+    background: #eee;
+    padding: 30px;
+    width: 380px;
+    border-radius: 12px;
+    text-align: center;
+}
+
+/* TITLE */
+.login-box h2 {
+    margin-bottom: 20px;
+}
+
+/* 🔥 IMPORTANT FIX 🔥 */
+/* SAME SIZE FOR SELECT + INPUT */
+.login-box select,
+.login-box input {
+    width: 100%;
+    height: 48px;              /* ✅ SAME HEIGHT */
+    padding: 0 14px;           /* ✅ SAME PADDING */
+    margin: 10px 0;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #999;
+    outline: none;
+}
+
+/* REMOVE BROWSER DEFAULT SELECT STYLING DIFFERENCE */
+.login-box select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #fff;
+}
+
+/* BUTTON */
+button {
+    width: 100%;
+    height: 48px;
+    margin-top: 10px;
+    background: #163163;
+    color: white;
+    border: none;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+/* LINKS */
+.links {
+    margin-top: 15px;
+}
+
+.links a {
+    display: block;
+    margin-top: 6px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #4b0082;
+}
+
+/* ERROR */
+.error {
+    color: red;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,120 @@
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 40px auto;
+}
+
+.card {
+    background: rgba(255, 255, 255, 0.95);
+    padding: 40px;
+    border-radius: 14px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    text-align: center;
+}
+
+.card h2 {
+    color: #1b4f8a;
+    margin-bottom: 8px;
+    font-size: 28px;
+}
+
+.subtitle {
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+.attempt-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+.attempt-table thead {
+    background: #1b4f8a;
+    color: white;
+}
+
+.attempt-table th {
+    padding: 15px;
+    font-weight: 600;
+    text-align: center;
+}
+
+.attempt-table td {
+    padding: 14px;
+    border-bottom: 1px solid #ddd;
+    text-align: center;
+}
+
+.attempt-table tbody tr:hover {
+    background-color: #f2f7ff;
+    transition: 0.3s;
+}
+
+.score {
+    font-weight: bold;
+    color: #28a745;
+    font-size: 16px;
+}
+
+.view-btn {
+    display: inline-block;
+    padding: 8px 14px;
+    background: #1b4f8a;
+    color: white;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s ease;
+}
+
+.view-btn:hover {
+    background: #163d6b;
+    transform: scale(1.05);
+}
+
+.back-btn-wrapper {
+    margin-top: 30px;
+}
+
+.back-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background: #0056b3;
+    color: white;
+    border-radius: 25px;
+    text-decoration: none;
+    transition: 0.3s ease;
+}
+
+.back-btn:hover {
+    background: #003f87;
+    transform: translateY(-2px);
+}
+
+.no-data {
+    margin-top: 30px;
+    color: #777;
+    font-size: 18px;
+}
+
+.no-data i {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 20px;
+    }
+
+    .attempt-table th,
+    .attempt-table td {
+        padding: 10px;
+        font-size: 14px;
+    }
+}

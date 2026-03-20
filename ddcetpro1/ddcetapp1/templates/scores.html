@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>My Scores | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/scores.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<div class="container">
+    <div class="card">
+
+        <h2>My Quiz Results</h2>
+        <p class="subtitle">Track your performance</p>
+
+        {% if results %}
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Quiz Type</th>
+                        <th>Marks</th>
+                        <th>Percentage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for r in results %}
+                    <tr>
+                        <td>{{ forloop.counter }}</td>
+
+                        <td>
+                            <span class="badge {{ r.type|lower }}">
+                                {{ r.type }}
+                            </span>
+                        </td>
+
+                        <td>{{ r.marks }}</td>
+
+                        <td>
+                            {% if r.percentage >= 60 %}
+                                <span class="percent good">{{ r.percentage }}%</span>
+                            {% elif r.percentage >= 40 %}
+                                <span class="percent average">{{ r.percentage }}%</span>
+                            {% else %}
+                                <span class="percent bad">{{ r.percentage }}%</span>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% else %}
+            <p class="no-data">No attempts found.</p>
+        {% endif %}
+
+        <div class="btn-wrapper">
+            <a href="{% url 'student_dashboard' %}" class="back-btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>

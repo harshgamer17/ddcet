@@ -1,0 +1,35 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Practice Quizzes | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/practice-options.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<header>Practice Quizzes</header>
+
+<div class="box">
+
+    <!-- MIX QUIZ -->
+    <a href="{% url 'mix_quiz' %}" class="card">
+        <h2>Mix Questions</h2>
+        <p>Questions from all subjects</p>
+    </a>
+
+    <!-- SUBJECT WISE -->
+    <a href="{% url 'subject_wise' %}" class="card">
+        <h2>Subject Wise</h2>
+        <p>Choose subject first</p>
+    </a>
+
+</div>
+
+<a href="{% url 'student_dashboard' %}" class="back">Back</a>
+
+</body>
+</html>

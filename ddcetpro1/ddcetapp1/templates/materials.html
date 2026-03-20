@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Study Materials | DDCET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- NEW CSS ONLY FOR THIS PAGE -->
+    <link rel="stylesheet" href="{% static 'css/material.css' %}">
+    <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+</head>
+<body>
+
+<div class="page-wrapper">
+
+    <div class="material-card">
+        <h1>Study Materials</h1>
+        <p class="subtitle">Select a subject to view chapters & PDFs</p>
+
+        {% if subjects %}
+        <div class="subject-grid">
+            {% for subject in subjects %}
+            <a href="{% url 'material_detail' subject %}" class="subject-box">
+                {{ subject }}
+            </a>
+            {% endfor %}
+        </div>
+        {% else %}
+            <p class="no-data">No study materials available.</p>
+        {% endif %}
+
+        <div class="btn-area">
+            <a href="{% url 'student_dashboard' %}" class="back-btn">
+                Back to Dashboard
+            </a>
+        </div>
+
+    </div>
+
+</div>
+
+</body>
+</html>

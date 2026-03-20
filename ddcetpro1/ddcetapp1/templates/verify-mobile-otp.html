@@ -1,0 +1,101 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verify Mobile OTP | DDCET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- PAGE CSS -->
+    <link rel="stylesheet" href="{% static 'css/verify-mobile-otp.css' %}">
+
+    <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+</head>
+<body>
+
+<div class="container">
+    <div class="form-box">
+
+        <h2>Verify Mobile OTP</h2>
+
+        {% if messages %}
+            {% for message in messages %}
+                <p style="color:red;">{{ message }}</p>
+            {% endfor %}
+        {% endif %}
+
+        <form method="POST">
+            {% csrf_token %}
+
+            <div class="input-box">
+                <input type="text"
+                       name="otp"
+                       maxlength="6"
+                       pattern="\d{6}"
+                       required
+                       placeholder="Enter 6 digit OTP">
+            </div>
+
+            <button type="submit" class="btn">Verify OTP</button>
+        </form>
+
+        <div class="timer">
+            Time Remaining: <span id="timer">{{ remaining_time }}</span> sec
+        </div>
+
+        <button id="resendBtn" class="resend-btn" disabled>
+            Resend OTP
+        </button>
+
+    </div>
+</div>
+
+<script>
+    let timeLeft = parseInt("{{ remaining_time }}");
+    const timerDisplay = document.getElementById("timer");
+    const resendBtn = document.getElementById("resendBtn");
+
+    function updateTimer() {
+        if (timeLeft > 0) {
+            timeLeft--;
+            timerDisplay.innerText = timeLeft;
+        } else {
+            resendBtn.disabled = false;
+            clearInterval(timerInterval);
+        }
+    }
+
+    const timerInterval = setInterval(updateTimer, 1000);
+
+    resendBtn.addEventListener("click", function() {
+
+        fetch("{% url 'resend_mobile_otp' %}", {
+            method: "GET",
+            headers: {
+                "X-Requested-With": "XMLHttpRequest"
+            }
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === "success") {
+
+                alert(data.message);
+
+                timeLeft = data.remaining_time;
+                timerDisplay.innerText = timeLeft;
+                resendBtn.disabled = true;
+
+                clearInterval(timerInterval);
+                setInterval(updateTimer, 1000);
+
+            } else {
+                alert(data.message);
+            }
+        });
+
+    });
+</script>
+
+</body>
+</html>

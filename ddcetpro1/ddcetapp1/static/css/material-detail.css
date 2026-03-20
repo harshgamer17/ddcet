@@ -1,0 +1,142 @@
+@import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap");
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #1e3c72, #2a5298);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Wrapper */
+.detail-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
+}
+
+/* Card */
+.detail-card {
+    background: #ffffff;
+    width: 100%;
+    max-width: 700px;
+    padding: 45px;
+    border-radius: 18px;
+    box-shadow: 0 15px 40px rgba(0,0,0,0.25);
+    text-align: center;
+}
+
+/* Title */
+.detail-card h1 {
+    font-size: 30px;
+    color: #333;
+    margin-bottom: 8px;
+}
+
+/* Subtitle */
+.subtitle {
+    font-size: 14px;
+    color: #777;
+    margin-bottom: 35px;
+}
+
+/* Coming Soon Section */
+.coming-soon {
+    margin-bottom: 35px;
+}
+
+.coming-soon h2 {
+    font-size: 22px;
+    color: #2a5298;
+    margin-top: 15px;
+}
+
+.coming-soon p {
+    font-size: 14px;
+    color: #555;
+    margin-top: 8px;
+}
+
+/* Animated Circle */
+.circle {
+    width: 80px;
+    height: 80px;
+    margin: 0 auto;
+    border-radius: 50%;
+    background: linear-gradient(45deg, #2a5298, #1e3c72);
+    animation: pulse 1.5s infinite;
+}
+
+/* Pulse Animation */
+@keyframes pulse {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(42, 82, 152, 0.7);
+    }
+    70% {
+        transform: scale(1.1);
+        box-shadow: 0 0 0 20px rgba(42, 82, 152, 0);
+    }
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Buttons */
+.button-group {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: 0.3s;
+}
+
+/* Primary Button */
+.primary {
+    background: #2a5298;
+    color: white;
+}
+
+.primary:hover {
+    background: #1e3c72;
+}
+
+/* Secondary Button */
+.secondary {
+    background: #f1f1f1;
+    color: #333;
+}
+
+.secondary:hover {
+    background: #ddd;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+    .detail-card {
+        padding: 25px;
+    }
+
+    .detail-card h1 {
+        font-size: 22px;
+    }
+
+    .coming-soon h2 {
+        font-size: 18px;
+    }
+}

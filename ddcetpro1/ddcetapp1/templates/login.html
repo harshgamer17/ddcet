@@ -1,0 +1,44 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Login | DDCET</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+</head>
+<body>
+
+<div class="login-overlay"></div>
+
+<div class="login-box">
+    <h2>DDCET Login Portal</h2>
+
+    {% for message in messages %}
+        <p class="error">{{ message }}</p>
+    {% endfor %}
+
+    <form method="post" action="{% url 'login' %}">
+        {% csrf_token %}
+        <select name="role" required>
+            <option value="">Login As</option>
+            <option value="admin">Admin</option>
+            <option value="student">Student</option>
+        </select>
+
+        <input type="text" name="username" placeholder="Username" required>
+        <input type="password" name="password" placeholder="Password" required>
+
+        <button type="submit">LOGIN</button>
+    </form>
+
+    <div class="links">
+        <a href="{% url 'register' %}">Student not registered?</a>
+        <a href="{% url 'forgot' %}">Forgot ID / Password?</a>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,39 @@
+body {
+    display:flex;
+    margin:0;
+    font-family:monospace;
+}
+
+.sidebar {
+    width:220px;
+    background:#163163;
+    color:white;
+    min-height:100vh;
+    padding:20px;
+}
+
+.sidebar a {
+    display:block;
+    padding:10px;
+    margin:10px 0;
+    background:#115688;
+    text-decoration:none;
+    color:white;
+}
+
+.content {
+    flex:1;
+    padding:30px;
+}
+
+.cards {
+    display:flex;
+    gap:20px;
+}
+
+.card {
+    background:#eee;
+    padding:20px;
+    border-radius:10px;
+    width:200px;
+}

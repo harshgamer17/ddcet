@@ -1,0 +1,86 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Student Profile | DDCET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+
+        <!-- RESPONSIVE PAGE -->
+    <link rel="stylesheet" href="{% static 'css/responsive.css' %}">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+</head>
+<body>
+
+<header>
+    <h1>DDCET: A Competitive Assessment & Management portal</h1>
+</header>
+
+<nav class="navbar">
+    <ul class="navbar-left">
+        <li><a href="{% url 'student_dashboard' %}">Dashboard</a></li>
+        <li><a>Profile</a></li>
+    </ul>
+
+    <ul class="navbar-right">
+        <li>
+            <a href="{% url 'student_profile' %}" class="my-profile-link">
+                <i class="fas fa-user-graduate"></i>
+                {{ request.user.first_name|default:request.user.username }}
+            </a>
+        </li>
+    </ul>
+</nav>
+
+<div class="background-slider"></div>
+
+<div class="container">
+    <h2>Student Profile</h2>
+    <p>Student account information</p>
+
+    <div class="profile-card">
+
+        <div class="profile-left">
+            <i class="fas fa-user-graduate"></i>
+            <h3>{{ request.user.username }}</h3>
+            <span>Student</span>
+        </div>
+
+        <div class="profile-right">
+            <div class="profile-field">
+                <label>Username</label>
+                <input type="text" value="{{ request.user.username }}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>Email</label>
+                <input type="text" value="{{ request.user.email }}" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>Role</label>
+                <input type="text" value="Student" disabled>
+            </div>
+
+            <div class="profile-field">
+                <label>Status</label>
+                <input type="text" value="Active" disabled>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="profile-actions">
+        <a href="{% url 'student_dashboard' %}">
+            <button class="logout">Back to Home</button>
+        </a>
+    </div>
+
+</div>
+
+</body>
+</html>
