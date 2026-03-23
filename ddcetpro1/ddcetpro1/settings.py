@@ -111,7 +111,7 @@ STATIC_URL = '/static/'
 
 # 🔥 CORRECT PATH
 STATICFILES_DIRS = [
-    BASE_DIR / 'ddcetpro1/ddcetapp1/static',
+    BASE_DIR / 'ddcetapp1/static',
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
