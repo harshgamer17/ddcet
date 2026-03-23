@@ -1,0 +1,1 @@
+web: gunicorn ddcetpro1.wsgi

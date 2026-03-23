@@ -94,3 +94,21 @@
         padding: 8px 15px;
     }
 }
+
+/* ================= FORM CENTER FIX ================= */
+
+@media (max-width: 768px) {
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .card {
+        width: 90% !important;
+        max-width: 400px;
+        margin: auto;
+    }
+}

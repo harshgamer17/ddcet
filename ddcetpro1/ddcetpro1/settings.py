@@ -35,7 +35,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
 
-    # Static files fix (IMPORTANT)
+    # 🔥 MUST for static files on Render
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -57,7 +57,10 @@ ROOT_URLCONF = 'ddcetpro1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'ddcetapp1/templates'],
+
+        # 🔥 FIXED PATH
+        'DIRS': [BASE_DIR / 'ddcetpro1/ddcetapp1/templates'],
+
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -75,7 +78,7 @@ TEMPLATES = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': BASE_DIR / 'ddcetpro1/db.sqlite3',
     }
 }
 
@@ -96,25 +99,25 @@ AUTH_PASSWORD_VALIDATORS = [
 # 🌍 LANGUAGE & TIMEZONE
 # ======================================================
 LANGUAGE_CODE = 'en-us'
-
 TIME_ZONE = 'Asia/Kolkata'
 
 USE_I18N = True
 USE_TZ = True
 
 # ======================================================
-# 📁 STATIC FILES
+# 📁 STATIC FILES (🔥 MAIN FIX)
 # ======================================================
 STATIC_URL = '/static/'
 
+# 🔥 CORRECT PATH
 STATICFILES_DIRS = [
-    BASE_DIR / 'ddcetapp1/static',
+    BASE_DIR / 'ddcetpro1/ddcetapp1/static',
 ]
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# WhiteNoise storage
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+# 🔥 VERY IMPORTANT (DO NOT CHANGE)
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
 
 # ======================================================
 # 🔐 LOGIN SETTINGS
@@ -124,7 +127,7 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # ======================================================
-# 📧 EMAIL CONFIG (OTP SYSTEM)
+# 📧 EMAIL CONFIG
 # ======================================================
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
@@ -137,13 +140,12 @@ EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
 # ======================================================
-# 🔒 SECURITY SETTINGS (PRODUCTION)
+# 🔒 SECURITY SETTINGS
 # ======================================================
 SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
-# HTTPS (Render auto SSL handle karega)
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 
