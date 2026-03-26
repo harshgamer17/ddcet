@@ -6,8 +6,8 @@ from django.contrib import messages
 from django.utils import timezone
 from django.contrib.auth.password_validation import validate_password
 from django.core.exceptions import ValidationError
-from django.core.mail import send_mail
 from django.http import JsonResponse
+from django.conf import settings
 from .models import PasswordResetOTP
 from .models import Student, Quiz, Question, QuizAttempt, AttemptAnswer
 import random
@@ -96,25 +96,23 @@ def register(request):
         email_msg = EmailMultiAlternatives(
             subject,
             text_content,
-            "ddcetmarch2026@gmail.com",
+            settings.EMAIL_HOST_USER,
             [email]
         )
 
         email_msg.attach_alternative(html_content, "text/html")
-        import threading
 
-        def send_email_async(email_msg):
-            try:
-                email_msg.send()
-            except Exception as e:
-                print("Email Error:", e)
-
-        threading.Thread(target=send_email_async, args=(email_msg,)).start()
+        try:
+            email_msg.send(fail_silently=False)
+            print("✅ EMAIL SENT SUCCESS")
+        except Exception as e:
+            print("❌ EMAIL ERROR:", e)
 
         messages.success(request, "OTP sent to your email.")
         return redirect('verify_email_otp')
 
     return render(request, 'register.html')
+
 
 # ================= VERIFY EMAIL OTP =================
 
@@ -167,7 +165,9 @@ def verify_email_otp(request):
 
     return render(request, "verify-email-otp.html")
 
+
 # ================= RESEND EMAIL OTP =================
+
 def resend_email_otp(request):
 
     reg_data = request.session.get('reg_data')
@@ -180,7 +180,6 @@ def resend_email_otp(request):
 
     email = reg_data.get("email")
 
-    import random
     otp = str(random.randint(100000, 999999))
 
     # Delete old OTP
@@ -192,7 +191,6 @@ def resend_email_otp(request):
         otp=otp
     )
 
-    # Send email
     from django.core.mail import EmailMultiAlternatives
 
     subject = "DDCET Registration OTP"
@@ -221,27 +219,26 @@ def resend_email_otp(request):
     email_msg = EmailMultiAlternatives(
         subject,
         text_content,
-        "ddcetmarch2026@gmail.com",
+        settings.EMAIL_HOST_USER,
         [email]
     )
 
     email_msg.attach_alternative(html_content, "text/html")
-    import threading
 
-    def send_email_async(email_msg):
-        try:
-            email_msg.send()
-        except Exception as e:
-            print("Email Error:", e)
-
-    threading.Thread(target=send_email_async, args=(email_msg,)).start()
+    try:
+        email_msg.send(fail_silently=False)
+        print("✅ RESEND EMAIL SUCCESS")
+    except Exception as e:
+        print("❌ RESEND EMAIL ERROR:", e)
 
     return JsonResponse({
         "status": "success",
         "message": "New OTP sent successfully."
     })
 
+
 # ================= LOGIN =================
+
 def login_view(request):
     if request.method == "POST":
         role = request.POST.get('role')
@@ -265,10 +262,12 @@ def login_view(request):
             messages.error(request, "Invalid credentials")
 
     return render(request, 'login.html')
+
+
 # ================= FORGOT PASSWORD (SEND OTP) =================
+
 def forgot(request):
 
-    # 🔥 IMPORTANT: logout any logged-in user
     if request.user.is_authenticated:
         logout(request)
 
@@ -283,10 +282,8 @@ def forgot(request):
 
         otp = str(random.randint(100000, 999999))
 
-        # Delete old OTPs for that user
         PasswordResetOTP.objects.filter(user=user).delete()
 
-        # Create new OTP
         PasswordResetOTP.objects.create(
             user=user,
             email=email,
@@ -299,75 +296,21 @@ def forgot(request):
 
         text_content = f"Your OTP is {otp}"
 
-        html_content = f"""
-        <!DOCTYPE html>
-        <html>
-        <body style="margin:0; padding:0; background:#f4f4f4; font-family:Arial, sans-serif;">
-
-            <div style="max-width:600px; margin:40px auto; background:#ffffff; padding:30px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
-
-                <h2 style="text-align:center; color:#d32f2f;">Password Reset Request</h2>
-
-                <p style="font-size:16px; color:#333; line-height:1.6;">
-                    Hello,
-                </p>
-
-                <p style="font-size:16px; color:#333; line-height:1.6;">
-                    We received a request to reset your password for your <strong>DDCET account</strong>.
-                    Please use the One-Time Password (OTP) below to proceed with resetting your password.
-                </p>
-
-                <p style="font-size:16px; color:#333; line-height:1.6;">
-                    For security reasons, do not share this OTP with anyone.
-                    If you did not request a password reset, you can safely ignore this email.
-                </p>
-
-                <div style="text-align:center; margin:30px 0;">
-                    <span style="display:inline-block; padding:15px 30px; font-size:28px; letter-spacing:6px; background:#d32f2f; color:#fff; border-radius:8px;">
-                        {otp}
-                    </span>
-                </div>
-
-                <p style="font-size:14px; color:#555; text-align:center;">
-                    This OTP is valid for 10 minutes.
-                </p>
-
-                <hr style="margin:30px 0;">
-
-                <p style="font-size:13px; color:#888; text-align:center;">
-                    If you did not request this password reset, please ignore this email.
-                </p>
-
-            </div>
-
-        </body>
-        </html>
-        """
-
         email_msg = EmailMultiAlternatives(
             subject,
             text_content,
-            "ddcetmarch2026@gmail.com",
+            settings.EMAIL_HOST_USER,
             [email]
         )
 
-        email_msg.attach_alternative(html_content, "text/html")
-        email_msg.send()
+        email_msg.send(fail_silently=False)
 
-        # Clear old reset session completely
-        request.session.pop("reset_user_id", None)
-        request.session.pop("reset_email", None)
-        request.session.pop("otp_expiry", None)
-
-        # Store new session values
-        expiry_time = int(time.time()) + 600
-        request.session["otp_expiry"] = expiry_time
+        request.session["otp_expiry"] = int(time.time()) + 600
         request.session["reset_email"] = email
 
         return redirect('verify_otp')
 
-    return render(request, 'forgotidpassword.html')
-# ================= VERIFY OTP =================
+    return render(request, 'forgotidpassword.html')# ================= VERIFY OTP =================
 
 def verify_otp(request):
 
@@ -423,7 +366,10 @@ def verify_otp(request):
     return render(request, "verify-otp.html", {
         "remaining_time": max(0, remaining_time)
     })
+
+
 # ================= RESEND OTP =================
+
 def resend_otp(request):
 
     email = request.session.get("reset_email")
@@ -447,6 +393,7 @@ def resend_otp(request):
     )
 
     from django.core.mail import EmailMultiAlternatives
+    from django.conf import settings
 
     subject = "DDCET Email Verification"
 
@@ -500,12 +447,12 @@ def resend_otp(request):
     email_msg = EmailMultiAlternatives(
         subject,
         text_content,
-        None,
+        settings.EMAIL_HOST_USER,
         [email]
     )
 
     email_msg.attach_alternative(html_content, "text/html")
-    email_msg.send()
+    email_msg.send(fail_silently=False)
 
     # Reset timer
     expiry_time = int(time.time()) + 600
@@ -516,7 +463,10 @@ def resend_otp(request):
         "message": "New OTP sent",
         "remaining_time": 600
     })
+
+
 # ================= RESET PASSWORD =================
+
 def reset_password(request):
 
     # 🔥 Do NOT allow logged-in user interference
@@ -565,7 +515,10 @@ def reset_password(request):
         return redirect('login')
 
     return render(request, "reset-password.html")
+
+
 # ================= ADMIN DASHBOARD =================
+
 @login_required
 def admin_dashboard(request):
     if not request.user.is_superuser:
@@ -584,7 +537,8 @@ def admin_dashboard(request):
     })
 
 
-# ================= ADMIN SUBJECTS PAGE (NEW) =================
+# ================= ADMIN SUBJECTS PAGE =================
+
 @login_required
 def admin_subjects(request):
     if not request.user.is_superuser:
@@ -616,6 +570,7 @@ def admin_subjects(request):
 
 
 # ================= ADMIN STUDENTS PAGE =================
+
 @login_required
 def admin_students(request):
     if not request.user.is_superuser:
@@ -630,6 +585,7 @@ def admin_students(request):
 
 
 # ================= STUDENT DASHBOARD =================
+
 @login_required
 def student_dashboard(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -641,13 +597,11 @@ def student_dashboard(request):
         status="Active"
     ).values("subject").distinct().count()
 
-    # 🔥 LAST 5 MIX QUIZ ATTEMPTS
     mix_attempts = QuizAttempt.objects.filter(
         student=student,
         is_mix=True
     ).order_by('-created_at')[:5]
 
-    # 🔥 LAST 5 SUBJECT QUIZ ATTEMPTS
     subject_attempts = QuizAttempt.objects.filter(
         student=student,
         is_mix=False
@@ -657,10 +611,8 @@ def student_dashboard(request):
         "active_subject_count": active_subject_count,
         "mix_attempts": mix_attempts,
         "subject_attempts": subject_attempts,
-    })
+    })# ================= PROFILES =================
 
-
-# ================= PROFILES =================
 @login_required
 def admin_profile(request):
     if not request.user.is_superuser:
@@ -678,6 +630,7 @@ def student_profile(request):
 
 
 # ================= QUIZ MANAGEMENT (ADMIN) =================
+
 @login_required
 def admin_quizzes(request):
     if not request.user.is_superuser:
@@ -740,6 +693,7 @@ def delete_quiz(request, quiz_id):
 
 
 # ================= ADD QUESTIONS (ADMIN) =================
+
 @login_required
 def add_questions(request, quiz_id):
     if not request.user.is_superuser:
@@ -768,6 +722,7 @@ def add_questions(request, quiz_id):
 
 
 # ================= PRACTICE OPTIONS =================
+
 @login_required
 def practice_options(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -777,6 +732,7 @@ def practice_options(request):
 
 
 # ================= SUBJECT LIST =================
+
 @login_required
 def subject_wise(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -789,7 +745,10 @@ def subject_wise(request):
     return render(request, 'subject-wise.html', {
         "subjects": subjects
     })
+
+
 # ================= MIX QUIZ =================
+
 @login_required
 def mix_quiz(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -797,7 +756,6 @@ def mix_quiz(request):
 
     student = get_object_or_404(Student, user=request.user)
 
-    # FIRST TIME START
     if 'mix_qids' not in request.session:
 
         qids = list(
@@ -816,7 +774,6 @@ def mix_quiz(request):
         request.session['mix_total_time'] = total_time
         request.session['mix_start_time'] = int(time.time())
 
-        # 🔥 CREATE QUIZ ATTEMPT
         attempt = QuizAttempt.objects.create(
             student=student,
             subject="MIX",
@@ -845,7 +802,6 @@ def mix_quiz(request):
     if remaining_time <= 0:
         remaining_time = 0
 
-    # FINISH CONDITION
     if index >= len(qids) or remaining_time <= 0:
 
         score = request.session['mix_score']
@@ -918,7 +874,9 @@ def mix_quiz(request):
         "total_marks": len(qids) * 2
     })
 
+
 # ================= SUBJECT QUIZ =================
+
 @login_required
 def subject_quiz(request, subject):
     if not Student.objects.filter(user=request.user).exists():
@@ -936,7 +894,6 @@ def subject_quiz(request, subject):
 
     key = f"{subject}_qids"
 
-    # 🔥 FIRST TIME START
     if key not in request.session:
 
         qids = list(
@@ -953,7 +910,6 @@ def subject_quiz(request, subject):
         request.session['sub_total_time'] = total_time
         request.session['sub_start_time'] = int(time.time())
 
-        # 🔥 CREATE QUIZ ATTEMPT
         attempt = QuizAttempt.objects.create(
             student=student,
             subject=subject,
@@ -982,15 +938,12 @@ def subject_quiz(request, subject):
     if remaining_time <= 0:
         remaining_time = 0
 
-    # 🔥 FINISH CONDITION
     if index >= len(qids) or remaining_time <= 0:
 
         score = request.session['sub_score']
 
-        # 🔥 GET ATTEMPT ID FROM SESSION
         attempt_id = request.session.get('sub_attempt_id')
 
-        # 🔥 SAVE FINAL SCORE
         if attempt_id:
             attempt = QuizAttempt.objects.get(id=attempt_id)
             attempt.score = score
@@ -1002,7 +955,6 @@ def subject_quiz(request, subject):
 
             attempt.save()
 
-        # CLEAR SESSION
         request.session.pop(key, None)
         request.session.pop('sub_index', None)
         request.session.pop('sub_score', None)
@@ -1030,7 +982,6 @@ def subject_quiz(request, subject):
 
         selected = request.POST.get('answer')
 
-        # SCORE UPDATE
         if selected is None:
             is_correct = False
         elif selected == question.correct_option:
@@ -1040,7 +991,6 @@ def subject_quiz(request, subject):
             request.session['sub_score'] -= 0.5
             is_correct = False
 
-        # 🔥 SAVE EACH ANSWER
         attempt_id = request.session.get('sub_attempt_id')
         if attempt_id:
             attempt = QuizAttempt.objects.get(id=attempt_id)
@@ -1066,8 +1016,6 @@ def subject_quiz(request, subject):
         "current_score": request.session.get('sub_score', 0),
         "total_marks": len(qids) * 2
     })
-
-
 # ======================================================
 # ================= RECENT ACTIVITY ====================
 # ======================================================
@@ -1083,7 +1031,6 @@ def recent_activity(request):
 @login_required
 def recent_mix_attempts(request):
     student = get_object_or_404(Student, user=request.user)
-
 
     attempts = QuizAttempt.objects.filter(
         student=student,
@@ -1108,6 +1055,7 @@ def recent_subject_attempts(request):
         "attempts": attempts
     })
 
+
 @login_required
 def attempt_detail(request, attempt_id):
     student = get_object_or_404(Student, user=request.user)
@@ -1122,7 +1070,6 @@ def attempt_detail(request, attempt_id):
         attempt=attempt
     ).select_related('question')
 
-    # 🔥 MIX DETAIL PAGE
     if attempt.is_mix:
         template_name = "mix-attempt-detail.html"
     else:
@@ -1133,7 +1080,9 @@ def attempt_detail(request, attempt_id):
         "answers": answers
     })
 
+
 # ================= SCORES PAGE =================
+
 @login_required
 def scores_view(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -1166,7 +1115,9 @@ def scores_view(request):
         "results": results
     })
 
+
 # ================= SUBJECTS PAGE =================
+
 @login_required
 def subjects_view(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -1180,7 +1131,9 @@ def subjects_view(request):
         "subjects": subjects
     })
 
+
 # ================= STUDY MATERIAL SUBJECT LIST =================
+
 @login_required
 def materials_view(request):
     if not Student.objects.filter(user=request.user).exists():
@@ -1196,6 +1149,7 @@ def materials_view(request):
 
 
 # ================= MATERIAL DETAIL PAGE =================
+
 @login_required
 def material_detail_view(request, subject):
     if not Student.objects.filter(user=request.user).exists():
@@ -1205,7 +1159,9 @@ def material_detail_view(request, subject):
         "subject": subject
     })
 
+
 # ================= LOGOUT =================
+
 def logout_view(request):
     logout(request)
     return redirect('login')
