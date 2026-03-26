@@ -102,12 +102,14 @@ def register(request):
 
         email_msg.attach_alternative(html_content, "text/html")
 
-        try:
-            email_msg.send(fail_silently=False)
-            print("✅ EMAIL SENT SUCCESS")
-        except Exception as e:
-            print("❌ EMAIL ERROR:", e)
+        def send_email_async(email_msg):
+            try:
+                email_msg.send(fail_silently=True)
+                print("✅ EMAIL SENT")
+            except Exception as e:
+                print("❌ EMAIL ERROR:", e)
 
+        threading.Thread(target=send_email_async, args=(email_msg,)).start()
         messages.success(request, "OTP sent to your email.")
         return redirect('verify_email_otp')
 
@@ -310,7 +312,9 @@ def forgot(request):
 
         return redirect('verify_otp')
 
-    return render(request, 'forgotidpassword.html')# ================= VERIFY OTP =================
+    return render(request, 'forgotidpassword.html')
+
+# ================= VERIFY OTP =================
 
 def verify_otp(request):
 

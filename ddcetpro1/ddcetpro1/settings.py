@@ -1,6 +1,9 @@
 from pathlib import Path
 import os
 
+EMAIL_TIMEOUT = 5
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
 # ======================================================
 # 📁 BASE DIRECTORY
 # ======================================================
