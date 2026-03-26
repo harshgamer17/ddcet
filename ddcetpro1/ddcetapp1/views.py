@@ -68,12 +68,40 @@ def register(request):
             "password": password,
         }
 
-        send_mail(
-            subject="DDCET Registration OTP",
-            message=f"Your registration OTP is: {otp}\nValid for 10 minutes.",
-            from_email=None,
-            recipient_list=[email],
+        from django.core.mail import EmailMultiAlternatives
+
+        subject = "DDCET Registration OTP"
+
+        text_content = f"Your OTP is {otp}"
+
+        html_content = f"""
+        <html>
+        <body style="background:#f4f4f4; font-family:Arial; padding:20px;">
+        <div style="max-width:600px; margin:auto; background:white; padding:30px; border-radius:10px;">
+        <h2 style="color:#1f3b6d;">DDCET Account Verification</h2>
+        <p>Use the OTP below to verify your account:</p>
+
+        <div style="text-align:center; margin:30px;">
+        <h1 style="background:#1f3b6d; color:white; padding:15px 25px; display:inline-block; border-radius:8px;">
+        {otp}
+        </h1>
+        </div>
+
+        <p style="color:gray;">Valid for 10 minutes.</p>
+        </div>
+        </body>
+        </html>
+        """
+
+        email_msg = EmailMultiAlternatives(
+            subject,
+            text_content,
+            "ddcetmarch2026@gmail.com",
+            [email]
         )
+
+        email_msg.attach_alternative(html_content, "text/html")
+        email_msg.send()
 
         messages.success(request, "OTP sent to your email.")
         return redirect('verify_email_otp')
@@ -157,12 +185,40 @@ def resend_email_otp(request):
     )
 
     # Send email
-    send_mail(
-        subject="DDCET Registration OTP (Resent)",
-        message=f"Your new registration OTP is: {otp}\nValid for 10 minutes.",
-        from_email=None,
-        recipient_list=[email],
+    from django.core.mail import EmailMultiAlternatives
+
+    subject = "DDCET Registration OTP"
+
+    text_content = f"Your OTP is {otp}"
+
+    html_content = f"""
+    <html>
+    <body style="background:#f4f4f4; font-family:Arial; padding:20px;">
+    <div style="max-width:600px; margin:auto; background:white; padding:30px; border-radius:10px;">
+    <h2 style="color:#1f3b6d;">DDCET Account Verification</h2>
+    <p>Use the OTP below to verify your account:</p>
+
+    <div style="text-align:center; margin:30px;">
+    <h1 style="background:#1f3b6d; color:white; padding:15px 25px; display:inline-block; border-radius:8px;">
+    {otp}
+    </h1>
+    </div>
+
+    <p style="color:gray;">Valid for 10 minutes.</p>
+    </div>
+    </body>
+    </html>
+    """
+
+    email_msg = EmailMultiAlternatives(
+        subject,
+        text_content,
+        "ddcetmarch2026@gmail.com",
+        [email]
     )
+
+    email_msg.attach_alternative(html_content, "text/html")
+    email_msg.send()
 
     return JsonResponse({
         "status": "success",
@@ -221,13 +277,66 @@ def forgot(request):
             otp=otp
         )
 
-        # Send Email
-        send_mail(
-            subject="DDCET Password Reset OTP",
-            message=f"Your OTP is: {otp}\nValid for 10 minutes.",
-            from_email=None,
-            recipient_list=[email],
+        from django.core.mail import EmailMultiAlternatives
+
+        subject = "DDCET Password Reset Request"
+
+        text_content = f"Your OTP is {otp}"
+
+        html_content = f"""
+        <!DOCTYPE html>
+        <html>
+        <body style="margin:0; padding:0; background:#f4f4f4; font-family:Arial, sans-serif;">
+
+            <div style="max-width:600px; margin:40px auto; background:#ffffff; padding:30px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+
+                <h2 style="text-align:center; color:#d32f2f;">Password Reset Request</h2>
+
+                <p style="font-size:16px; color:#333; line-height:1.6;">
+                    Hello,
+                </p>
+
+                <p style="font-size:16px; color:#333; line-height:1.6;">
+                    We received a request to reset your password for your <strong>DDCET account</strong>.
+                    Please use the One-Time Password (OTP) below to proceed with resetting your password.
+                </p>
+
+                <p style="font-size:16px; color:#333; line-height:1.6;">
+                    For security reasons, do not share this OTP with anyone.
+                    If you did not request a password reset, you can safely ignore this email.
+                </p>
+
+                <div style="text-align:center; margin:30px 0;">
+                    <span style="display:inline-block; padding:15px 30px; font-size:28px; letter-spacing:6px; background:#d32f2f; color:#fff; border-radius:8px;">
+                        {otp}
+                    </span>
+                </div>
+
+                <p style="font-size:14px; color:#555; text-align:center;">
+                    This OTP is valid for 10 minutes.
+                </p>
+
+                <hr style="margin:30px 0;">
+
+                <p style="font-size:13px; color:#888; text-align:center;">
+                    If you did not request this password reset, please ignore this email.
+                </p>
+
+            </div>
+
+        </body>
+        </html>
+        """
+
+        email_msg = EmailMultiAlternatives(
+            subject,
+            text_content,
+            "ddcetmarch2026@gmail.com",
+            [email]
         )
+
+        email_msg.attach_alternative(html_content, "text/html")
+        email_msg.send()
 
         # Clear old reset session completely
         request.session.pop("reset_user_id", None)
@@ -321,12 +430,66 @@ def resend_otp(request):
         otp=otp
     )
 
-    send_mail(
-        subject="DDCET Password Reset OTP (Resent)",
-        message=f"Your new OTP is: {otp}\nValid for 10 minutes.",
-        from_email=None,
-        recipient_list=[email],
+    from django.core.mail import EmailMultiAlternatives
+
+    subject = "DDCET Email Verification"
+
+    text_content = f"Your OTP is {otp}"
+
+    html_content = f"""
+    <!DOCTYPE html>
+    <html>
+    <body style="margin:0; padding:0; background:#f4f4f4; font-family:Arial, sans-serif;">
+
+        <div style="max-width:600px; margin:40px auto; background:#ffffff; padding:30px; border-radius:10px; box-shadow:0 5px 15px rgba(0,0,0,0.1);">
+
+            <h2 style="text-align:center; color:#1f3b6d;">DDCET Account Verification</h2>
+
+            <p style="font-size:16px; color:#333; line-height:1.6;">
+                Hello,
+            </p>
+
+            <p style="font-size:16px; color:#333; line-height:1.6;">
+                Thank you for registering with <strong>DDCET Portal</strong>.
+                To complete your account setup, please use the One-Time Password (OTP) provided below.
+            </p>
+
+            <p style="font-size:16px; color:#333; line-height:1.6;">
+                This OTP is required to verify your email address and ensure the security of your account.
+                Please do not share this code with anyone.
+            </p>
+
+            <div style="text-align:center; margin:30px 0;">
+                <span style="display:inline-block; padding:15px 30px; font-size:28px; letter-spacing:6px; background:#1f3b6d; color:#fff; border-radius:8px;">
+                    {otp}
+                </span>
+            </div>
+
+            <p style="font-size:14px; color:#555; text-align:center;">
+                This OTP is valid for 10 minutes.
+            </p>
+
+            <hr style="margin:30px 0;">
+
+            <p style="font-size:13px; color:#888; text-align:center;">
+                If you did not request this, please ignore this email.
+            </p>
+
+        </div>
+
+    </body>
+    </html>
+    """
+
+    email_msg = EmailMultiAlternatives(
+        subject,
+        text_content,
+        None,
+        [email]
     )
+
+    email_msg.attach_alternative(html_content, "text/html")
+    email_msg.send()
 
     # Reset timer
     expiry_time = int(time.time()) + 600

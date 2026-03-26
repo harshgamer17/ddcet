@@ -1,11 +1,5 @@
 @import url("https://fonts.googleapis.com/css?family=Poppins:300,400,600&display=swap");
 
-html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
-}
 * {
     margin: 0;
     padding: 0;
@@ -13,6 +7,9 @@ html, body {
     font-family: "Poppins", sans-serif;
 }
 
+html, body {
+    height: 100%;
+}
 
 /* BACKGROUND */
 body {
@@ -25,12 +22,12 @@ body {
 
 /* CENTER */
 .container {
-    min-height: 100vh;   /* CHANGE THIS */
-    width: 100%;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
+
 /* CARD */
 .card {
     background: #ffffff;
