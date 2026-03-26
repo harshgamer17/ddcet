@@ -101,10 +101,15 @@ def register(request):
         )
 
         email_msg.attach_alternative(html_content, "text/html")
-        try:
-            email_msg.send()
-        except Exception as e:
-            print("Email Error:", e)
+        import threading
+
+        def send_email_async(email_msg):
+            try:
+                email_msg.send()
+            except Exception as e:
+                print("Email Error:", e)
+
+        threading.Thread(target=send_email_async, args=(email_msg,)).start()
 
         messages.success(request, "OTP sent to your email.")
         return redirect('verify_email_otp')
@@ -221,10 +226,15 @@ def resend_email_otp(request):
     )
 
     email_msg.attach_alternative(html_content, "text/html")
-    try:
-        email_msg.send()
-    except Exception as e:
-        print("Email Error:", e)
+    import threading
+
+    def send_email_async(email_msg):
+        try:
+            email_msg.send()
+        except Exception as e:
+            print("Email Error:", e)
+
+    threading.Thread(target=send_email_async, args=(email_msg,)).start()
 
     return JsonResponse({
         "status": "success",
