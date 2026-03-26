@@ -101,7 +101,10 @@ def register(request):
         )
 
         email_msg.attach_alternative(html_content, "text/html")
-        email_msg.send()
+        try:
+            email_msg.send()
+        except Exception as e:
+            print("Email Error:", e)
 
         messages.success(request, "OTP sent to your email.")
         return redirect('verify_email_otp')
@@ -218,7 +221,10 @@ def resend_email_otp(request):
     )
 
     email_msg.attach_alternative(html_content, "text/html")
-    email_msg.send()
+    try:
+        email_msg.send()
+    except Exception as e:
+        print("Email Error:", e)
 
     return JsonResponse({
         "status": "success",

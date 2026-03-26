@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================================
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key')
 
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 
@@ -135,8 +135,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
-EMAIL_HOST_PASSWORD = os.environ.get('EMAIL_HOST_PASSWORD')
+EMAIL_HOST_USER = os.environ.get('ddcetmarch2026@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('nfwuejssdrcbvatp')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
