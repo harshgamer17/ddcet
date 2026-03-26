@@ -13,6 +13,9 @@ from .models import Student, Quiz, Question, QuizAttempt, AttemptAnswer
 import random
 import time
 from .models import EmailRegistrationOTP
+from django.core.mail import EmailMultiAlternatives
+# from django.conf import settings
+import threading
 
 # ================= HOME =================
 
@@ -102,14 +105,24 @@ def register(request):
 
         email_msg.attach_alternative(html_content, "text/html")
 
-        def send_email_async(email_msg):
+        def send_email_async(subject, text_content, html_content, to_email):
             try:
+                email_msg = EmailMultiAlternatives(
+                    subject,
+                    text_content,
+                    settings.EMAIL_HOST_USER,
+                    [to_email]
+                )
+                email_msg.attach_alternative(html_content, "text/html")
                 email_msg.send(fail_silently=True)
                 print("✅ EMAIL SENT")
             except Exception as e:
                 print("❌ EMAIL ERROR:", e)
 
-        threading.Thread(target=send_email_async, args=(email_msg,)).start()
+        threading.Thread(
+            target=send_email_async,
+            args=(subject, text_content, html_content, email)
+        ).start()
         messages.success(request, "OTP sent to your email.")
         return redirect('verify_email_otp')
 
