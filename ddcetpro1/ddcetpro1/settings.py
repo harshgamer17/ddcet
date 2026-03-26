@@ -11,7 +11,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================================
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key')
 
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
 
@@ -111,8 +111,9 @@ STATIC_URL = '/static/'
 
 # 🔥 CORRECT PATH
 STATICFILES_DIRS = [
-    BASE_DIR / 'ddcetpro1/ddcetapp1/static',
+    BASE_DIR / 'ddcetapp1/static',
 ]
+
 
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
