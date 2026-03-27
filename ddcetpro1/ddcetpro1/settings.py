@@ -12,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================================
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key')
 
-DEBUG = False   # 🔥 IMPORTANT
+DEBUG = False
 
-ALLOWED_HOSTS = ['*']   # 🔥 TEMP (baad me domain set karenge)
+ALLOWED_HOSTS = ['*']
 
 # ======================================================
 # 📦 INSTALLED APPS
@@ -56,7 +56,7 @@ ROOT_URLCONF = 'ddcetpro1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'ddcetapp1/templates'],  # 🔥 FIXED PATH
+        'DIRS': [BASE_DIR / 'ddcetapp1/templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -69,13 +69,11 @@ TEMPLATES = [
 ]
 
 # ======================================================
-# 🗄️ DATABASE (Railway PostgreSQL Support)
+# 🗄️ DATABASE (Railway PostgreSQL)
 # ======================================================
 DATABASES = {
-    'default': dj_database_url.config(
-        default='sqlite:///db.sqlite3',
-        conn_max_age=600,
-        ssl_require=True
+    'default': dj_database_url.parse(
+        os.environ.get("DATABASE_URL")
     )
 }
 
@@ -129,8 +127,8 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get('ddcetmarch2026@gmail.com')   # 🔥 FIX
-EMAIL_HOST_PASSWORD = os.environ.get('nfwuejssdrcbvatp')  # 🔥 FIX
+EMAIL_HOST_USER = os.environ.get('ddcetmarch2026@gmail.com')
+EMAIL_HOST_PASSWORD = os.environ.get('nfwuejssdrcbvatp')
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 

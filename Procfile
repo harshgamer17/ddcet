@@ -1,1 +1,1 @@
-web: gunicorn ddcetpro1.ddcetpro1.wsgi:application
+web: gunicorn ddcetpro1.wsgi:application
