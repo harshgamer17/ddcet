@@ -1,1 +1,1 @@
-web: gunicorn ddcetpro1.wsgi:application --bind 0.0.0.0:$PORT
+web: gunicorn ddcetpro1.ddcetpro1.wsgi:application --bind 0.0.0.0:$PORT
