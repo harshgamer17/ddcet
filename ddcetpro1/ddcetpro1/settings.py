@@ -1,9 +1,7 @@
 from pathlib import Path
 import os
+import dj_database_url
 
-EMAIL_TIMEOUT = 5
-EMAIL_USE_TLS = True
-EMAIL_PORT = 587
 # ======================================================
 # 📁 BASE DIRECTORY
 # ======================================================
@@ -14,9 +12,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # ======================================================
 SECRET_KEY = os.environ.get('SECRET_KEY', 'django-insecure-fallback-key')
 
-DEBUG = True
+DEBUG = False   # 🔥 IMPORTANT
 
-ALLOWED_HOSTS = ['.onrender.com', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']   # 🔥 TEMP (baad me domain set karenge)
 
 # ======================================================
 # 📦 INSTALLED APPS
@@ -37,8 +35,6 @@ INSTALLED_APPS = [
 # ======================================================
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-
-    # 🔥 MUST for static files on Render
     'whitenoise.middleware.WhiteNoiseMiddleware',
 
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -60,10 +56,7 @@ ROOT_URLCONF = 'ddcetpro1.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-
-        # 🔥 FIXED PATH
-        'DIRS': [BASE_DIR / 'ddcetpro1/ddcetapp1/templates'],
-
+        'DIRS': [BASE_DIR / 'ddcetapp1/templates'],  # 🔥 FIXED PATH
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,13 +69,14 @@ TEMPLATES = [
 ]
 
 # ======================================================
-# 🗄️ DATABASE
+# 🗄️ DATABASE (Railway PostgreSQL Support)
 # ======================================================
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'ddcetpro1/db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default='sqlite:///db.sqlite3',
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
 
 # ======================================================
@@ -108,20 +102,17 @@ USE_I18N = True
 USE_TZ = True
 
 # ======================================================
-# 📁 STATIC FILES (🔥 MAIN FIX)
+# 📁 STATIC FILES
 # ======================================================
 STATIC_URL = '/static/'
 
-# 🔥 CORRECT PATH
 STATICFILES_DIRS = [
     BASE_DIR / 'ddcetapp1/static',
 ]
 
-
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 
-# 🔥 VERY IMPORTANT (DO NOT CHANGE)
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # ======================================================
 # 🔐 LOGIN SETTINGS
@@ -131,15 +122,15 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/login/'
 
 # ======================================================
-# 📧 EMAIL CONFIG
+# 📧 EMAIL CONFIG (FIXED)
 # ======================================================
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 
-EMAIL_HOST_USER = os.environ.get('ddcetmarch2026@gmail.com')
-EMAIL_HOST_PASSWORD = os.environ.get('nfwuejssdrcbvatp')
+EMAIL_HOST_USER = os.environ.get('ddcetmarch2026@gmail.com')   # 🔥 FIX
+EMAIL_HOST_PASSWORD = os.environ.get('nfwuejssdrcbvatp')  # 🔥 FIX
 
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 
